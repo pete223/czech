@@ -61,11 +61,9 @@ VOWELS = ["a", "e", "o"]
 class Gender:
     def __init__(self, word):
         last_letter = word[-1:]
+        self.root = word
         if last_letter in VOWELS:
             self.root = word[:-1]
-        else:
-            self.root = word
-        self.endings = self.get_endings()
 
     def case(self, case=1, explain=True):
         if case in [1, "nom", "nomanitive", "NOM", "NOMANITIVE"]:
@@ -92,41 +90,42 @@ class Gender:
         return self.root + self.endings[case]
 
     @property
-    def nouns(self):
-        return {
-            "_": "_",
-        }
+    def endings(self):
+        return {1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: ""}
 
     @property
-    def nouns_en(self):
-        cz_nouns = self.nouns.items()
-        en_nouns = {}
-
-        for key, value in cz_nouns:
-            en_nouns[value] = key
-        return en_nouns
-
-    def get_endings(self):
-        return {1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: ""}
+    def all_cases(self):
+        print(self.case(1, False))
+        print(self.case(2, False))
+        print(self.case(3, False))
+        print(self.case(4, False))
+        print(self.case(5, False))
+        print(self.case(6, False))
+        print(self.case(7, False))
+        return
 
 
 class FirstDeclensionMasculineAnimate(Gender):
-    def get_endings(self):
+    @property
+    def endings(self):
         return {1: "", 2: "a", 3: "ovi", 4: "a", 5: "e", 6: "ovi", 7: "em"}
 
 
 class FirstDeclensionMasculineInanimate(Gender):
-    def get_endings(self):
+    @property
+    def endings(self):
         return {1: "", 2: "u", 3: "u", 4: "", 5: "", 6: "ě", 7: "em"}
 
 
 class FirstDeclensionFeminine(Gender):
-    def get_endings(self):
+    @property
+    def endings(self):
         return {1: "a", 2: "y", 3: "e", 4: "u", 5: "o", 6: "e", 7: "ou"}
 
 
 class FirstDeclensionNeuter(Gender):
-    def get_endings(self):
+    @property
+    def endings(self):
         return {1: "o", 2: "a", 3: "u", 4: "o", 5: "", 6: "ě", 7: "em"}
 
 
@@ -135,7 +134,9 @@ class Noun():
         self.czech = czech
         self.english = english
         self.gender = gender(self.czech)
-        self.endings = self.gender.get_endings()
+        self.case = self.gender.case
+        self.endings = self.gender.get_endings
+        self.all_cases = self.gender.all_cases
 
     def __repr__(self):
         return self.czech
