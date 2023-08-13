@@ -55,14 +55,15 @@ SIMPLE_CONSONANTS = [
     "z",
 ]
 
-VOWELS = ["a", "e", "o"]
+VOWELS = ["a", "e", "o", "ě"]
 
 
 class Gender:
     def __init__(self, word):
-        last_letter = word[-1:]
-        self.root = word
-        if last_letter in VOWELS:
+        self.last_letter = word[-1:]
+        self.word = word
+        self.root = self.word
+        if self.last_letter in VOWELS:
             self.root = word[:-1]
 
     def case(self, case=1, explain=True):
@@ -93,7 +94,6 @@ class Gender:
     def endings(self):
         return {1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: ""}
 
-    @property
     def all_cases(self):
         print(self.case(1, False))
         print(self.case(2, False))
@@ -129,17 +129,56 @@ class FirstDeclensionNeuter(Gender):
         return {1: "o", 2: "a", 3: "u", 4: "o", 5: "", 6: "ě", 7: "em"}
 
 
+class SecondDeclensionMasculineAnimate(Gender):
+    @property
+    def endings(self):
+        return {1: "", 2: "e", 3: "ovi", 4: "e", 5: "i", 6: "ovi", 7: "em"}
+
+
+class SecondDeclensionMasculineInanimate(Gender):
+    @property
+    def endings(self):
+        return {1: "", 2: "e", 3: "i", 4: "", 5: "", 6: "i", 7: "em"}
+
+
+class SecondDeclensionFeminine(Gender):
+    # @property
+    # # Note! some words may end in e already, so we need to drop the vowel
+    # # and only then add the ending
+    # def case(self, case=1, explain=True):
+    #     word_with_case = super().case(case, explain)
+    #     if self.last_letter == "e" and case == 1:
+    #         return self.word
+    #     if self.last_letter == "ř" and case == 4:
+    #         return self.word
+    #     return word_with_case
+
+    # TODO: fix above
+    @property
+    def endings(self):
+        return {1: "", 2: "e", 3: "i", 4: "i", 5: "", 6: "i", 7: "í"}
+
+
+class SecondDeclensionNeuter(Gender):
+    @property
+    # TODO: remove the extra ě
+    def endings(self):
+        return {1: "ě", 2: "ě", 3: "i", 4: "ě", 5: "", 6: "i", 7: "ěm"}
+
+
 class Noun():
     def __init__(self, czech, english, gender) -> None:
         self.czech = czech
         self.english = english
         self.gender = gender(self.czech)
         self.case = self.gender.case
-        self.endings = self.gender.get_endings
-        self.all_cases = self.gender.all_cases
+        self.endings = self.gender.endings
 
     def __repr__(self):
         return self.czech
+
+    def declinate(self):
+        return self.gender.all_cases()
 
 
 class FDMA(FirstDeclensionMasculineAnimate):
@@ -179,4 +218,38 @@ fdf_nouns = [
 fdn_nouns = [
     Noun("auto", "car", FDN),
     Noun("kino", "cinema", FDN),
+]
+
+
+class SDMA(SecondDeclensionMasculineAnimate):
+    pass
+
+
+class SDMI(SecondDeclensionMasculineInanimate):
+    pass
+
+
+class SDF(SecondDeclensionFeminine):
+    pass
+
+
+class SDN(SecondDeclensionNeuter):
+    pass
+
+
+sdma_nouns = [
+    Noun("lékař", "", SDMA),
+]
+
+sdmi_nouns = [
+    Noun("počitač", "computer", SDMI),
+]
+
+sdf_nouns = [
+    Noun("restaurace", "restaurant", SDF),
+    Noun("kancelář", "office", SDF),
+]
+
+sdn_nouns = [
+    Noun("letistě", "airport", SDN),
 ]
