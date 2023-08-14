@@ -1,62 +1,4 @@
-CASES = {
-    1: {
-        "name": "NOMANITIVE",
-        "meaning": "Used as the subject of the sentence",
-        "prepositions": [],
-    },
-    2: {
-        "name": "GENITIVE",
-        "meaning": "Expresses possessive or partitive meaning the students book/ the piece of banana", # noqa
-        "prepositions": [],
-    },
-    3: {
-        "name": "DATIVE",
-        "meaning": "Is used for the indirect object I'll give the coffee to the student", # noqa
-        "prepositions": [],
-    },
-    4: {
-        "name": "ACCUSATIVE",
-        "meaning": "Is used for the direct object",
-        "prepositions": [],
-    },
-    5: {
-        "name": "VOCATIVE",
-        "meaning": "Used to address people and animals",
-        "prepositions": [],
-    },
-    6: {"name": "LOCATIVE", "meaning": "Used to express location", "prepositions": []},
-    7: {
-        "name": "INSTRUMENTAL",
-        "meaning": "Express the means by which an activity is carried out",
-        "prepositions": [],
-    },
-}
-
-SIMPLE_CONSONANTS = [
-    "b",
-    "c",
-    "d",
-    "f",
-    "g",
-    "h",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "p",
-    "r",
-    "s",
-    "t",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-]
-
-VOWELS = ["a", "e", "o", "ě"]
-
+from .constants import CASES, VOWELS
 
 class Gender:
     def __init__(self, word):
@@ -108,7 +50,7 @@ class Gender:
 class FirstDeclensionMasculineAnimate(Gender):
     @property
     def endings(self):
-        return {1: "", 2: "a", 3: "ovi", 4: "a", 5: "e", 6: "ovi", 7: "em"}
+       return {1: "", 2: "a", 3: "ovi", 4: "a", 5: "e", 6: "ovi", 7: "em"}
 
 
 class FirstDeclensionMasculineInanimate(Gender):
@@ -166,90 +108,19 @@ class SecondDeclensionNeuter(Gender):
         return {1: "ě", 2: "ě", 3: "i", 4: "ě", 5: "", 6: "i", 7: "ěm"}
 
 
-class Noun():
-    def __init__(self, czech, english, gender) -> None:
-        self.czech = czech
-        self.english = english
-        self.gender = gender(self.czech)
-        self.case = self.gender.case
-        self.endings = self.gender.endings
-
-    def __repr__(self):
-        return self.czech
-
-    def declinate(self):
-        return self.gender.all_cases()
+class ThirdDeclensionMasculineAnimate(Gender):
+    @property
+    def endings(self):
+       return {1: "", 2: "y", 3: "ovi", 4: "u", 5: "o", 6: "ovi", 7: "ou"}
 
 
-class FDMA(FirstDeclensionMasculineAnimate):
-    pass
+class ThirdDeclensionFeminine(Gender):
+    @property
+    def endings(self):
+        return {1: "", 2: "i", 3: "i", 4: "", 5: "", 6: "i", 7: "í"}
 
 
-class FDMI(FirstDeclensionMasculineInanimate):
-    pass
-
-
-class FDF(FirstDeclensionFeminine):
-    pass
-
-
-class FDN(FirstDeclensionNeuter):
-    pass
-
-
-fdma_nouns = [
-    Noun("doktor", "doctor", FDMA),
-    Noun("pan", "old man", FDMA),
-    Noun("muž", "young man", FDMA),
-]
-
-
-fdmi_nouns = [
-    Noun("obchod", "shop", FDMI),
-]
-
-
-fdf_nouns = [
-    Noun("žena", "woman", FDF),
-    Noun("škola", "school", FDF),
-]
-
-
-fdn_nouns = [
-    Noun("auto", "car", FDN),
-    Noun("kino", "cinema", FDN),
-]
-
-
-class SDMA(SecondDeclensionMasculineAnimate):
-    pass
-
-
-class SDMI(SecondDeclensionMasculineInanimate):
-    pass
-
-
-class SDF(SecondDeclensionFeminine):
-    pass
-
-
-class SDN(SecondDeclensionNeuter):
-    pass
-
-
-sdma_nouns = [
-    Noun("lékař", "", SDMA),
-]
-
-sdmi_nouns = [
-    Noun("počitač", "computer", SDMI),
-]
-
-sdf_nouns = [
-    Noun("restaurace", "restaurant", SDF),
-    Noun("kancelář", "office", SDF),
-]
-
-sdn_nouns = [
-    Noun("letistě", "airport", SDN),
-]
+class ThirdDeclensionNeuter(Gender):
+    @property
+    def endings(self):
+        return {1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "m"}
