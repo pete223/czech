@@ -1,57 +1,33 @@
-from .declensions import (
-    FirstDeclensionMasculineAnimate,
-    FirstDeclensionMasculineInanimate,
-    FirstDeclensionFeminine,
-    FirstDeclensionNeuter,
-    SecondDeclensionMasculineAnimate,
-    SecondDeclensionMasculineInanimate,
-    SecondDeclensionFeminine,
-    SecondDeclensionNeuter,
-    ThirdDeclensionMasculineAnimate,
-    ThirdDeclensionFeminine,
-    ThirdDeclensionNeuter,
+from .nouns_first import (
+    fdma_nouns,
+    fdmi_nouns,
+    fdf_nouns,
+    fdn_nouns
+)
+
+from .nouns_second import (
+    sdma_nouns,
+    sdmi_nouns,
+    sdf_nouns,
+    sdn_nouns
 )
 
 
-class FDMA(FirstDeclensionMasculineAnimate):
-    pass
+from .nouns_third import (
+    tdma_nouns,
+    tdf_nouns,
+    tdn_nouns
+)
 
 
-class FDMI(FirstDeclensionMasculineInanimate):
-    pass
+from .verbs_first import fdv_verbs
 
 
-class FDF(FirstDeclensionFeminine):
-    pass
+ALL_NOUNS = (
+     fdma_nouns + fdmi_nouns + fdf_nouns + fdn_nouns
+     + sdma_nouns + sdmi_nouns + sdf_nouns + sdn_nouns
+     + tdma_nouns + tdf_nouns + tdn_nouns
+ )
 
 
-class FDN(FirstDeclensionNeuter):
-    pass
-
-
-class SDMA(SecondDeclensionMasculineAnimate):
-    pass
-
-
-class SDMI(SecondDeclensionMasculineInanimate):
-    pass
-
-
-class SDF(SecondDeclensionFeminine):
-    pass
-
-
-class SDN(SecondDeclensionNeuter):
-    pass
-
-
-class TDMA(ThirdDeclensionMasculineAnimate):
-    pass
-
-
-class TDF(ThirdDeclensionFeminine):
-    pass
-
-
-class TDN(ThirdDeclensionNeuter):
-    pass
+ALL_VERBS = (fdv_verbs)
