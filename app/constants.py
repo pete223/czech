@@ -56,3 +56,16 @@ SIMPLE_CONSONANTS = [
 ]
 
 VOWELS = ["a", "e", "o", "ě"]
+
+GENDERS = ["MA", "MI", "F", "N"]
+
+PRONOUNS = {
+    "i": 1,
+    "you": 2,
+    "he": 3,
+    "she": 3,
+    "it": 3,
+    "we": 4,
+    "yous": 5,
+    "they": 6
+}

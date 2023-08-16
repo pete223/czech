@@ -9,6 +9,7 @@ from .categories import (
 # TEN
 sdma_nouns = [
     SDMA("lékař", "healer", PROFESSION),
+    SDMA("herec", "actor", PROFESSION),
 ]
 
 
